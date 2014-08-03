@@ -14,19 +14,19 @@ import static org.junit.Assert.*;
 /**
  * Created by jsomerville on 7/5/14.
  */
-public class CryptorTest {
+public class SpringCryptorServiceImplTest {
     private static final String password = "password";
     private static final String sampleText = "This is an encryption test.";
 
     @Test
     public void CryptorPostConstructorSaltNotNull() {
-        Cryptor cryptor = new Cryptor(password);
+        SpringCryptorServiceImpl cryptor = new SpringCryptorServiceImpl(password);
         assertNotNull(cryptor.getSalt());
     }
 
     @Test
     public void CryptorSaltIsConstant() {
-        Cryptor cryptor = new Cryptor(password);
+        SpringCryptorServiceImpl cryptor = new SpringCryptorServiceImpl(password);
         String saltAccess1 = cryptor.getSalt();
         String saltAccess2 = cryptor.getSalt();
         assertSame(saltAccess1, saltAccess2);
@@ -34,14 +34,14 @@ public class CryptorTest {
 
     @Test(expected = NullArgumentException.class)
     public void CryptorConstructorPasswordParamNotNull() {
-        Cryptor cryptor = new Cryptor(null);
+        SpringCryptorServiceImpl cryptor = new SpringCryptorServiceImpl(null);
     }
 
     @Test
     public void CryptorIsEncrypting() {
         byte[] originalBytes = sampleText.getBytes(Charset.forName("UTF-8"));
 
-        Cryptor cryptor = new Cryptor(password);
+        SpringCryptorServiceImpl cryptor = new SpringCryptorServiceImpl(password);
         byte[] encryptedBytes = cryptor.Encrypt(originalBytes);
 
         assertThat(encryptedBytes, not(equalTo(originalBytes)));
@@ -54,7 +54,7 @@ public class CryptorTest {
     public void CryptorIsDecrypting() {
         byte[] originalBytes = sampleText.getBytes(Charset.forName("UTF-8"));
 
-        Cryptor cryptor = new Cryptor(password);
+        SpringCryptorServiceImpl cryptor = new SpringCryptorServiceImpl(password);
         byte[] encryptedBytes = cryptor.Encrypt(originalBytes);
         byte[] decryptedBytes = cryptor.Decrypt(encryptedBytes);
 
