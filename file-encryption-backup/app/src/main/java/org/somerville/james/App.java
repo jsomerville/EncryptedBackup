@@ -2,8 +2,9 @@ package org.somerville.james;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.somerville.james.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Hello world!
@@ -11,10 +12,13 @@ import org.somerville.james.*;
  */
 public class App 
 {
+	private static final Logger logger = LoggerFactory.getLogger(App.class);
+	
     public static void main( String[] args )
     {
-    	ApplicationContext appContext = new FileSystemXmlApplicationContext("applicationContext.xml");
-    	//ApplicationContext appContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+    	logger.debug("This is a log");
+    	
+    	ApplicationContext appContext = new ClassPathXmlApplicationContext("applicationContext.xml");
     	
  
     	//Get the file encryptor
